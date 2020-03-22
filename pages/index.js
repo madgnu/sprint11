@@ -56,8 +56,8 @@ const setEventListeners = (form) => {
     const inputs = [...form.elements].filter((el) => el.tagName === 'INPUT');
     const submitBtn = ([...form.elements].filter((el) => el.tagName === 'BUTTON'))[0];
     const submitDefaultState = submitBtn.disabled;
-    inputs.forEach((el) => el.addEventListener('input', () => setSubmitButtonState(submitBtn, inputs.reduce((acc, el) => checkInputValidity(el, document.getElementById(el.dataset.errfield)) && acc, true))));
-    form.addEventListener('reset', () => { setSubmitButtonState(submitBtn, !submitDefaultState); inputs.forEach((el) => document.getElementById(el.dataset.errfield).textContent = ''); });
+    inputs.forEach((el) => el.addEventListener('input', () => setSubmitButtonState(submitBtn, inputs.reduce((acc, el) => checkInputValidity(el, document.querySelector(el.dataset.errfield)) && acc, true))));
+    form.addEventListener('reset', () => { setSubmitButtonState(submitBtn, !submitDefaultState); inputs.forEach((el) => document.querySelector(el.dataset.errfield).textContent = ''); });
 }
 
 const openPopup = (popup) => { popup.classList.add('popup_is-opened'); (currentPopup = popup) };
