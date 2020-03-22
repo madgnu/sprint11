@@ -16,8 +16,10 @@ const initialCards = [
 const cardList = document.querySelector('.places-list');
 const profileName = document.querySelector('.user-info__name');
 const profileJob = document.querySelector('.user-info__job');
+const popupImage = document.querySelector('.popup__image');
 const newCardPopup = document.querySelector('#newCard');
 const editProfilePopup = document.querySelector('#editProfile');
+const magnifyPopup = document.querySelector('#imageMagnifier');
 const newCardBtn = document.querySelector('.user-info__add-card');
 const editProfileBtn = document.querySelector('.user-info__edit-profile');
 const popupCloseBtns = document.querySelectorAll('.popup__close');
@@ -42,11 +44,13 @@ const closePopup = (popup) => popup.classList.remove('popup_is-opened') && newFo
 //const escapeForm = (event) => (newCardPopup.classList.contains('popup_is-opened') && event.key === 'Escape') ? closePopup() : null;
 const likeChange = (event) => (event.target.classList.contains('place-card__like-icon')) ? event.target.classList.toggle('place-card__like-icon_liked') : null;
 const deleteCard = (event) => (event.target.classList.contains('place-card__delete-icon')) ? event.target.parentNode.parentNode.remove() : null;
+const magnifyImage = (event) => event.target.classList.contains('place-card__image') ? (popupImage.src = event.target.style.backgroundImage.slice(5, -2)) && openPopup(magnifyPopup) : null;
 const submitNewCard = (event) => { event.preventDefault(); createCard({ name: newForm.elements.name.value, link: newForm.elements.link.value }); closePopup(newCardPopup); };
 const submitProfileChange = (event) => {event.preventDefault(); updateProfile({ name: editProfileForm.name.value, job: editProfileForm.elements.job.value }); closePopup(editProfilePopup); };
 
 cardList.addEventListener('click', likeChange);
 cardList.addEventListener('click', deleteCard);
+cardList.addEventListener('click', magnifyImage);
 newCardBtn.addEventListener('click', () => openPopup(newCardPopup));
 editProfileBtn.addEventListener('click', () => openPopup(editProfilePopup));
 popupCloseBtns.forEach((btn) => btn.addEventListener('click', () => closePopup(btn.closest('.popup'))));
