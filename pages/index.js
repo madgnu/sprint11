@@ -14,31 +14,44 @@ const initialCards = [
 ];
 
 const cardList = document.querySelector('.places-list');
-const popup = document.querySelector('.popup');
-const popupOpenBtn = document.querySelector('.user-info__add-card');
-const popupCloseBtn = document.querySelector('.popup__close');
+const profileName = document.querySelector('.user-info__name');
+const profileJob = document.querySelector('.user-info__job');
+const newCardPopup = document.querySelector('#newCard');
+const editProfilePopup = document.querySelector('#editProfile');
+const newCardBtn = document.querySelector('.user-info__add-card');
+const editProfileBtn = document.querySelector('.user-info__edit-profile');
+const popupCloseBtns = document.querySelectorAll('.popup__close');
 const newForm = document.forms.new;
+const editProfileForm = document.forms.editProfile;
 
 const createCard = ({name, link}) => {
-  const tpl = document.querySelector('#cardTpl');
-  const cardDOM = tpl.content.cloneNode(true);
-  cardDOM.querySelector('.place-card__image').style.backgroundImage = `url(${link})`;
-  cardDOM.querySelector('.place-card__name').textContent = name;
-  cardList.appendChild(cardDOM);
+    const cardTpl = document.querySelector('#cardTpl');
+    const cardDOM = cardTpl.content.cloneNode(true);
+    cardDOM.querySelector('.place-card__image').style.backgroundImage = `url(${link})`;
+    cardDOM.querySelector('.place-card__name').textContent = name;
+    cardList.appendChild(cardDOM);
 }
 
-const openForm = () => popup.classList.add('popup_is-opened');
-const closeForm = () => popup.classList.remove('popup_is-opened') || newForm.reset();
-const escapeForm = (event) => (popup.classList.contains('popup_is-opened') && event.key === 'Escape') ? closeForm() : null;
+const updateProfile = ({name, job}) => {
+    profileName.textContent = name;
+    profileJob.textContent = job;
+}
+
+const openPopup = (popup) => popup.classList.add('popup_is-opened');
+const closePopup = (popup) => popup.classList.remove('popup_is-opened') && newForm.reset() && editProfile.reset();
+//const escapeForm = (event) => (newCardPopup.classList.contains('popup_is-opened') && event.key === 'Escape') ? closePopup() : null;
 const likeChange = (event) => (event.target.classList.contains('place-card__like-icon')) ? event.target.classList.toggle('place-card__like-icon_liked') : null;
 const deleteCard = (event) => (event.target.classList.contains('place-card__delete-icon')) ? event.target.parentNode.parentNode.remove() : null;
-const submitForm = (event) => { event.preventDefault(); createCard({ name: newForm.elements.name.value, link: newForm.elements.link.value }); closeForm(); };
+const submitNewCard = (event) => { event.preventDefault(); createCard({ name: newForm.elements.name.value, link: newForm.elements.link.value }); closePopup(newCardPopup); };
+const submitProfileChange = (event) => {event.preventDefault(); updateProfile({ name: editProfileForm.name.value, job: editProfileForm.elements.job.value }); closePopup(editProfilePopup); };
 
 cardList.addEventListener('click', likeChange);
 cardList.addEventListener('click', deleteCard);
-popupOpenBtn.addEventListener('click', openForm);
-popupCloseBtn.addEventListener('click', closeForm);
-newForm.addEventListener('submit', submitForm);
-document.addEventListener('keydown', escapeForm);
+newCardBtn.addEventListener('click', () => openPopup(newCardPopup));
+editProfileBtn.addEventListener('click', () => openPopup(editProfilePopup));
+popupCloseBtns.forEach((btn) => btn.addEventListener('click', () => closePopup(btn.closest('.popup'))));
+newForm.addEventListener('submit', submitNewCard);
+editProfileForm.addEventListener('submit', submitProfileChange);
+//document.addEventListener('keydown', escapeForm);
 
 initialCards.forEach(createCard);
