@@ -57,12 +57,12 @@ const setEventListeners = (form) => {
     const submitBtn = ([...form.elements].filter((el) => el.tagName === 'BUTTON'))[0];
     const submitDefaultState = submitBtn.disabled;
     inputs.forEach((el) => el.addEventListener('input', () => setSubmitButtonState(submitBtn, inputs.reduce((acc, el) => checkInputValidity(el, document.getElementById(el.dataset.errfield)) && acc, true))));
-    form.addEventListener('reset', () => setSubmitButtonState(submitBtn, !submitDefaultState));
+    form.addEventListener('reset', () => { setSubmitButtonState(submitBtn, !submitDefaultState); inputs.forEach((el) => document.getElementById(el.dataset.errfield).textContent = ''); });
 }
 
 const openPopup = (popup) => { popup.classList.add('popup_is-opened'); (currentPopup = popup) };
 const closePopup = () => { currentPopup.classList.remove('popup_is-opened'); (currentForm && currentForm.reset()) };
-const escapeForm = (event) => (event.key === 'Escape' && currentPopup && currentPopup.classList.contains('popup_is-opened')) ? closePopup() : null;
+const escapePopup = (event) => (event.key === 'Escape' && currentPopup && currentPopup.classList.contains('popup_is-opened')) ? closePopup() : null;
 const likeChange = (event) => (event.target.classList.contains('place-card__like-icon')) ? event.target.classList.toggle('place-card__like-icon_liked') : null;
 const deleteCard = (event) => (event.target.classList.contains('place-card__delete-icon')) ? event.target.parentNode.parentNode.remove() : null;
 const magnifyImage = (event) => event.target.classList.contains('place-card__image') ? (popupImage.src = event.target.style.backgroundImage.slice(5, -2)) && openPopup(magnifyPopup) : null;
@@ -77,7 +77,7 @@ editProfileBtn.addEventListener('click', () => {  editProfileForm.name.value = p
 popupCloseBtns.forEach((btn) => btn.addEventListener('click', closePopup));
 newForm.addEventListener('submit', submitNewCard);
 editProfileForm.addEventListener('submit', submitProfileChange);
-document.addEventListener('keydown', escapeForm);
+document.addEventListener('keydown', escapePopup);
 setEventListeners(editProfileForm);
 setEventListeners(newForm);
 
