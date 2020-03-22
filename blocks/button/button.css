@@ -1,5 +1,5 @@
 .button {
-  background-color: transparent;
+  background-color: black;
   border: 1px solid white;
   color: white;
   width: 150px;
@@ -11,6 +11,12 @@
 
 .button:focus {
   outline-color: greenyellow;
+}
+
+button:disabled {
+  background-color: transparent;
+  border-color: black;
+  color: gray;
 }
 
 .button_secondary {

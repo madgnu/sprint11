@@ -42,6 +42,24 @@ const updateProfile = ({name, job}) => {
     profileJob.textContent = job;
 }
 
+const checkInputValidity = (el, errEl) => {
+    if (el.validity.valueMissing) errEl.textContent = 'Это обязательное поле';
+    else if (el.validity.tooShort || el.validity.tooLong) errEl.textContent = `Должно быть от ${el.getAttribute('minlength')} до ${el.getAttribute('maxlength')} символов`;
+    else if (el.type === 'url' && (el.validity.typeMismatch || el.validity.patternMismatch)) errEl.textContent = 'Здесь должна быть ссылка';
+    else errEl.textContent = '';
+    return el.checkValidity();
+}
+
+const setSubmitButtonState = (btn, enabled) => btn.disabled = !enabled;
+
+const setEventListeners = (form) => {
+    const inputs = [...form.elements].filter((el) => el.tagName === 'INPUT');
+    const submitBtn = ([...form.elements].filter((el) => el.tagName === 'BUTTON'))[0];
+    const submitDefaultState = submitBtn.disabled;
+    inputs.forEach((el) => el.addEventListener('input', () => setSubmitButtonState(submitBtn, inputs.reduce((acc, el) => checkInputValidity(el, document.getElementById(el.dataset.errfield)) && acc, true))));
+    form.addEventListener('reset', () => setSubmitButtonState(submitBtn, !submitDefaultState));
+}
+
 const openPopup = (popup) => { popup.classList.add('popup_is-opened'); (currentPopup = popup) };
 const closePopup = () => { currentPopup.classList.remove('popup_is-opened'); (currentForm && currentForm.reset()) };
 const escapeForm = (event) => (event.key === 'Escape' && currentPopup && currentPopup.classList.contains('popup_is-opened')) ? closePopup() : null;
@@ -55,10 +73,12 @@ cardList.addEventListener('click', likeChange);
 cardList.addEventListener('click', deleteCard);
 cardList.addEventListener('click', magnifyImage);
 newCardBtn.addEventListener('click', () => { openPopup(newCardPopup); currentForm = newForm; });
-editProfileBtn.addEventListener('click', () => { openPopup(editProfilePopup); currentForm = editProfileForm; });
+editProfileBtn.addEventListener('click', () => {  editProfileForm.name.value = profileName.textContent; editProfileForm.job.value = profileJob.textContent; openPopup(editProfilePopup); currentForm = editProfileForm; });
 popupCloseBtns.forEach((btn) => btn.addEventListener('click', closePopup));
 newForm.addEventListener('submit', submitNewCard);
 editProfileForm.addEventListener('submit', submitProfileChange);
 document.addEventListener('keydown', escapeForm);
+setEventListeners(editProfileForm);
+setEventListeners(newForm);
 
 initialCards.forEach(createCard);

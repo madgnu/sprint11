@@ -1,0 +1,14 @@
+.popup__input-err {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: red;
+    margin-top: 4px;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.popup__input-err:last-of-type {
+    margin-bottom: 0;
+}

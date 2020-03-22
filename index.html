@@ -41,9 +41,11 @@
         <img src="./images/close.svg" alt="" class="popup__close">
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="new">
-            <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
-            <input type="text" name="link" class="popup__input popup__input_type_link-url" placeholder="Ссылка на картинку">
-            <button type="submit" class="button popup__button">+</button>
+            <input type="text" name="name" class="popup__input" placeholder="Название" data-errfield="cardNameErr" minlength="2" maxlength="30" required>
+            <span class="popup__input-err" id="cardNameErr"></span>
+            <input type="url" name="link" class="popup__input" placeholder="Ссылка на картинку" data-errfield="cardLinkErr" pattern=".*\.(jpg|jpeg|png|gif|bmp|svg)$" required>
+            <span class="popup__input-err" id="cardLinkErr"></span>
+            <button type="submit" class="button popup__button" disabled>+</button>
         </form>
       </div>
     </div>
@@ -52,8 +54,10 @@
         <img src="./images/close.svg" alt="" class="popup__close">
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="editProfile">
-            <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя">
-            <input type="text" name="job" class="popup__input popup__input_type_link-url" placeholder="О себе">
+            <input type="text" name="name" class="popup__input" placeholder="Имя" data-errfield="profileNameErr" minlength="2" maxlength="30" required>
+            <span class="popup__input-err" id="profileNameErr"></span>
+            <input type="text" name="job" class="popup__input" placeholder="О себе" data-errfield="profileJobErr" minlength="2" maxlength="30" required>
+            <span class="popup__input-err" id="profileJobErr"></span>
             <button type="submit" class="button popup__button">Сохранить</button>
         </form>
       </div>
