@@ -15,7 +15,7 @@ const initialCards = [
 
 const cardList = document.querySelector('.places-list');
 const popup = document.querySelector('.popup');
-const popupOpenBtn = document.querySelector('.user-info__button');
+const popupOpenBtn = document.querySelector('.user-info__add-card');
 const popupCloseBtn = document.querySelector('.popup__close');
 const newForm = document.forms.new;
 
@@ -49,11 +49,3 @@ newForm.addEventListener('submit', submitForm);
 document.addEventListener('keydown', escapeForm);
 
 initialCards.forEach(createCard);
-
-/*Надо исправить:
-* Применение Flux архитектуры для решения столь простой задачи это оверхед. Количество кода, подключеного для решения задачи многократно превышает количество кода, требующегося для решения.
-* Проект невозможно запустить без поднятия локального сервера из-за CORS и применения ES6 импортов.
-* Использовать модули можно будет после прохождения спринтов по архитектуре. Классы используются на 8 спринте. Там же можно будет применить, при желании, паттерны, но без сторонних библиотек.
-* Для сдачи необходимо переписать задание без применения модулей, стора, редьюсеров и пр. Стоит воспользоваться знаниями, которые даются в теоретической части к этому спринту.
-* 
-* Отлично: функционал работает корректно.*/

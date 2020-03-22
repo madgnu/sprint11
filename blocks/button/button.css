@@ -12,3 +12,10 @@
 .button:focus {
   outline-color: greenyellow;
 }
+
+.button_secondary {
+  font-size: 12px;
+  line-height: 15px;
+  width: unset;
+  height: unset;
+}
