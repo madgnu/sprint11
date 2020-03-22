@@ -9,6 +9,17 @@
   <script src="pages/index.js" defer></script>
 </head>
 <body>
+  <template id="cardTpl">
+    <div class="place-card">
+      <div class="place-card__image">
+        <button class="place-card__delete-icon"></button>
+      </div>
+      <div class="place-card__description">
+          <h3 class="place-card__name"></h3>
+          <button class="place-card__like-icon"></button>
+      </div>
+    </div>
+  </template>
   <div class="root">
     <header class="header root__section">
       <img src="./images/logo.svg" alt="mesto logo" class="logo">

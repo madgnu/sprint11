@@ -20,19 +20,12 @@ const popupCloseBtn = document.querySelector('.popup__close');
 const newForm = document.forms.new;
 
 const createCard = ({name, link}) => {
-    const el = document.createElement('div');
-    const tpl = `
-        <div class="place-card__image" style="background-image: url(${link})">
-            <button class="place-card__delete-icon"></button>
-        </div>
-        <div class="place-card__description">
-            <h3 class="place-card__name">${name}</h3>
-            <button class="place-card__like-icon"></button>
-        </div>`;
-    el.classList = 'place-card';
-    el.insertAdjacentHTML('beforeend', tpl);
-    cardList.appendChild(el);
-};
+  const tpl = document.querySelector('#cardTpl');
+  const cardDOM = tpl.content.cloneNode(true);
+  cardDOM.querySelector('.place-card__image').style.backgroundImage = `url(${link})`;
+  cardDOM.querySelector('.place-card__name').textContent = name;
+  cardList.appendChild(cardDOM);
+}
 
 const openForm = () => popup.classList.add('popup_is-opened');
 const closeForm = () => popup.classList.remove('popup_is-opened') || newForm.reset();
