@@ -40,7 +40,7 @@ const clickEditProfile =  () => {
 const magnifyImage = (event) => {
     if (event.target.classList.contains('place-card__image')) {
         popupImage.src = event.target.style.backgroundImage.slice(5, -2);
-        openPopup(magnifyPopup)
+        openPopup(magnifyPopup);
     }
 };
 

@@ -17,6 +17,6 @@ const escapePopup = (event) => {
     if (event.key === 'Escape' && currentPopup && currentPopup.classList.contains('popup_is-opened')) {
         closePopup();
     }
-}
+};
 
 const initCloseBtns = (btns) => btns.forEach((el) => el.addEventListener('click', closePopup));
