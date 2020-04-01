@@ -14,5 +14,5 @@ class Component {
         this._dom.remove();
         this.children.forEach((el) => el.remove());
         if (typeof(this.props.onRemove) === 'function')  this.props.onRemove(this);
-    };
+    }
 }

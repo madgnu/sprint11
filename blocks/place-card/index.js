@@ -5,13 +5,13 @@ class PlaceCard extends Component {
         this.like = this.like.bind(this);
         this._magnify = this._magnify.bind(this);
         this.render();
-    };
+    }
 
     render() {
         const cardTpl = this._create();
         super.render(cardTpl.firstElementChild);
         this.props.container.appendChild(cardTpl);
-    };
+    }
 
     _create() {
         const cardDOM = this._template.content.cloneNode(true);

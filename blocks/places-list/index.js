@@ -15,6 +15,6 @@ class PlacesList extends Component {
     }
 
     addCard(card) {
-       this.children.push(new PlaceCard({...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify}));
+        this.children.push(new PlaceCard({...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify}));
     }
 }

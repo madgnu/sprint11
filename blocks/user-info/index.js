@@ -8,15 +8,15 @@ class UserInfo extends Component {
     render() {
         if (!this._dom) {
             super.render(this.props.container);
-            this._editProfieBtn = new Button({
+            editProfieBtn = new Button({
                 container: this._dom.querySelector('.user-info__edit-profile'),
                 onClick: this.props.clickEditProfile
             });
-            this._newCardBtn = new Button({
+            newCardBtn = new Button({
                 container: this._dom.querySelector('.user-info__add-card'),
                 onClick: this.props.clickNewCard
             });
-            this.children = [...this.children, this._editProfieBtn, this._newCardBtn];
+            this.children = [...this.children, editProfieBtn, newCardBtn];
         }
         this._dom.querySelector('.user-info__name').textContent = this.state.name;
         this._dom.querySelector('.user-info__job').textContent = this.state.job;
