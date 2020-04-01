@@ -8,11 +8,11 @@ class UserInfo extends Component {
     render() {
         if (!this._dom) {
             super.render(this.props.container);
-            editProfieBtn = new Button({
+            const editProfieBtn = new Button({
                 container: this._dom.querySelector('.user-info__edit-profile'),
                 onClick: this.props.clickEditProfile
             });
-            newCardBtn = new Button({
+            const newCardBtn = new Button({
                 container: this._dom.querySelector('.user-info__add-card'),
                 onClick: this.props.clickNewCard
             });

@@ -3,7 +3,7 @@ class FormValidator {
         this._form = form;
         this._inputs = [...form.elements].filter((el) => el.tagName === 'INPUT');
         this._submits = [...form.elements].filter((el) => el.tagName === 'BUTTON' && el.type === 'submit');
-        this.validate = this.validate.bind(this);
+        this.setSubmitButtonState = this.setSubmitButtonState.bind(this);
         this._submitHandler = this._submitHandler.bind(this);
         this.setEventListeners();
     }
@@ -16,7 +16,7 @@ class FormValidator {
         return el.checkValidity();
     }
 
-    validate(showErrors = true) {
+    setSubmitButtonState(showErrors = true) {
         const formIsValid = this._inputs.reduce((acc, el) => showErrors  ? this.checkInputValidity(el, document.querySelector(el.dataset.errfield)) && acc : acc && el.checkValidity(), true);
         this._submits.forEach((el) => el.disabled = !formIsValid);
     }
@@ -29,18 +29,19 @@ class FormValidator {
     }
 
     setEventListeners() {
-        this._inputs.forEach((el) => el.addEventListener('input', this.validate));
+        this._inputs.forEach((el) => el.addEventListener('input', () => this.setSubmitButtonState()));
         this._form.addEventListener('submit', this._submitHandler);
     }
 
     reset() {
         this._form.reset();
         this._inputs.forEach((el) => document.querySelector(el.dataset.errfield).textContent = '');
+        this.setSubmitButtonState(false);
     }
 
     setValues(data) {
         for (const field in data) this._form.elements[field].value = data[field];
-        this.validate(false);
+        this.setSubmitButtonState(false);
     }
 
 }
