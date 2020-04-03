@@ -1,20 +1,24 @@
 class PlacesList extends Component {
-    constructor(props) {
-        super(props);
-        this._removeCardCb = this._removeCardCb.bind(this);
-        this.render();
-    }
+  constructor(props) {
+    super(props);
+    this._removeCardCb = this._removeCardCb.bind(this);
+    this.render();
+  }
 
-    render() {
-        super.render(this.props.container);
-        this.props.cards.forEach((el) => this.addCard(el));
-    }
+  render() {
+    super.render(this.props.container);
+    this.props.cards.forEach((el) => this.addCard(el));
+  }
 
-    _removeCardCb(cardEl) {
-        this.children = this.children.filter((el) => el !== cardEl);
-    }
+  _removeCardCb(cardEl) {
+    this.children = this.children.filter((el) => el !== cardEl);
+  }
 
-    addCard(card) {
-        this.children.push(new PlaceCard({...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify}));
-    }
+  addCard(card) {
+    // Нельзя создавать новые сущности одного класса внутри другого класса
+    // Класс -- объект самодостаточный, ему необходимо данные передавать в конструктор или в методы в конце концов.
+    // Если этот класс будет включен в другой проект, то тогда придется тянуть за собой все глобальные объекты,
+    // к которым он обращается.
+    this.children.push(new PlaceCard({ ...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify }));
+  }
 }
