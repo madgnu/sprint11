@@ -4,7 +4,6 @@ class Popup extends Component {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this._escHandler = this._escHandler.bind(this);
-    this.render();
   }
 
   render() {

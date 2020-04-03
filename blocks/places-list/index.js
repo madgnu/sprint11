@@ -2,7 +2,6 @@ class PlacesList extends Component {
   constructor(props) {
     super(props);
     this._removeCardCb = this._removeCardCb.bind(this);
-    this.render();
   }
 
   render() {
@@ -19,6 +18,8 @@ class PlacesList extends Component {
     // Класс -- объект самодостаточный, ему необходимо данные передавать в конструктор или в методы в конце концов.
     // Если этот класс будет включен в другой проект, то тогда придется тянуть за собой все глобальные объекты,
     // к которым он обращается.
-    this.children.push(new PlaceCard({ ...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify }));
+    const cardInstance = new PlaceCard({ ...card, container: this._dom, onRemove: this._removeCardCb, magnify: this.props.magnify });
+    this.children.push(cardInstance);
+    cardInstance.render();
   }
 }
