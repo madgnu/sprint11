@@ -10,20 +10,29 @@ const userInfo = new UserInfo({
   container: document.querySelector('.user-info'),
   name: 'Jaques Causteau',
   job: 'Sailor, Researcher',
-  clickEditProfile: () => {
-    editProfileForm.reset();
-    editProfileForm.setValues(userInfo.profile);
-    editProfilePopup.open();
-  },
-  clickNewCard: () => {
-    newForm.reset();
-    newCardPopup.open();
-  }
+  children: [
+    new Button({
+      container: document.querySelector('.user-info__edit-profile'),
+      onClick: () => {
+        editProfileForm.reset();
+        editProfileForm.setValues(userInfo.profile);
+        editProfilePopup.open();
+      }
+    }),
+    new Button({
+      container: document.querySelector('.user-info__add-card'),
+      onClick: () => {
+        newForm.reset();
+        newCardPopup.open();
+      }
+    })
+  ]
 });
 
 const placesList = new PlacesList({
   container: document.querySelector('.places-list'),
   cards: initialCards,
+  defaultChildClass: PlaceCard,
   magnify: (url) => {
     popupImage.src = url;
     magnifyPopup.open();
