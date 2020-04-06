@@ -16,7 +16,7 @@ class Component {
       this._dom = el;
       this.componentDidMount();
     }
-    this.children.forEach((el) => el.render());
+    this.children.forEach((el) => !el.getDOM() && el.render());
     return this._dom;
   }
 
