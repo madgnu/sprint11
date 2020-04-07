@@ -18,6 +18,11 @@ class Popup extends Component {
     this.getDOM().querySelector('.popup__close').addEventListener('click', this.close);
   }
 
+  componentWillUnmount() {
+    this.getDOM().querySelector('.popup__close').removeEventListener('click', this.close);
+    if (this.state.isOpened) document.removeEventListener('keydown', this._escHandler);
+  }
+
   _escHandler(event) {
     if (event.key === 'Escape') this.close();
   }

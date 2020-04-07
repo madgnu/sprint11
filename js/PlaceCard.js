@@ -47,6 +47,12 @@ class PlaceCard extends Component {
     this.getDOM().querySelector('.place-card__image').addEventListener('click', this._magnify);
   }
 
+  componentWillUnmount() {
+    this.getDOM().querySelector('.place-card__like-icon').removeEventListener('click', this.like);
+    this.getDOM().querySelector('.place-card__delete-icon').removeEventListener('click', this.remove);
+    this.getDOM().querySelector('.place-card__image').removeEventListener('click', this._magnify);
+  }
+
   like() {
     this.setState({ isLiked: !this.state.isLiked });
   }

@@ -25,7 +25,12 @@ class PlacesList extends Component {
     if (Array.isArray(data)) {
       // Можно лучше
       // Вы, как человек с опытом, знаете что длинные строки лучше переносить для читаемости
-      const newCards = data.map((cardData) => new ChildComponent({ ...cardData, parentDOM: this.getDOM, onRemove: this._removeCardCb, magnify: this.props.magnify }));
+      const newCards = data.map((cardData) => new ChildComponent({
+        ...cardData,
+        parentDOM: this.getDOM,
+        onRemove: this._removeCardCb, 
+        magnify: this.props.magnify
+      }));
       this.setState({ children: [...this.state.children, ...newCards] });
       // Тут можно return и продолжить без else
     } else {

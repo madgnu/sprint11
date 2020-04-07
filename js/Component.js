@@ -19,6 +19,8 @@ class Component {
   }
 
   remove() {
+    this._unmounting = true;
+    this.componentWillUnmount();
     this.children.forEach((el) => el.remove());
     if (this._dom) this._dom.remove();
     if (typeof (this.props.onRemove) === 'function') this.props.onRemove(this);
@@ -36,6 +38,10 @@ class Component {
     return undefined;
   }
 
+  componentWillUnmount() {
+    return undefined;
+  }
+
   shouldComponentUpdate(newState) {
     return newState != this.state;
   }
@@ -45,7 +51,7 @@ class Component {
     const newState = { ...this.state, ...nextState };
     const oldState = this.state;
 
-    if (this.getDOM() && this.shouldComponentUpdate(newState, oldState)) {
+    if (this.getDOM() && !this._unmounting && this.shouldComponentUpdate(newState, oldState)) {
       this.componentWillUpdate(oldState, newState);
       this.state = newState;
       this.render();

@@ -6,4 +6,8 @@ class Button extends Component {
     componentDidMount() {
         this.getDOM().addEventListener('click', this.props.onClick);
     }
+
+    componentWillUnmount() {
+        this.getDOM().removeEventListener('click', this.props.onClick);
+    }
 }
