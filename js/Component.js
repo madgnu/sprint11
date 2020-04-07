@@ -1,8 +1,6 @@
 class Component {
   constructor(props) {
     this.props = props || {};
-    // Это свойство кажется вообще нигде не используется
-    // ANSWER: это не так
     if (this.props.children) this.children = [...this.props.children];
     else this.children = [];
     this.render = this.render.bind(this);
@@ -22,9 +20,8 @@ class Component {
 
   remove() {
     this.children.forEach((el) => el.remove());
-    // А тут бы не помешало преверить существует ли this._dom, а то где гарантия что super.render вызовут?
     if (this._dom) this._dom.remove();
-    if (typeof(this.props.onRemove) === 'function') this.props.onRemove(this);
+    if (typeof (this.props.onRemove) === 'function') this.props.onRemove(this);
   }
 
   getDOM() {
@@ -51,7 +48,7 @@ class Component {
     if (this.getDOM() && this.shouldComponentUpdate(newState, oldState)) {
       this.componentWillUpdate(oldState, newState);
       this.state = newState;
-      this.render();  
+      this.render();
     }
   }
 }

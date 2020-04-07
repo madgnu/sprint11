@@ -9,10 +9,6 @@ class PlaceCard extends Component {
     this.state = {
       isLiked: false
     };
-    // Вызывать метод рендеринга в конструкторе достаточно рискованно
-    // 1) Т.к. конструктор не переопределяется, то это метод будет всегда при наследовании вызываться
-    // а это может быть совершенно не нужным
-    // 2) Если что-то не так пойдет с DOM, то тут ошибка в конструкторе ничего хорошего не сулит
   }
 
   render() {
@@ -24,10 +20,13 @@ class PlaceCard extends Component {
     // ANSWER: я бы мог получить нужный мне dom через селектор, но зачем, если есть более дешевый способ
     // ANSWER: btw, в скринкасте, посвященном этому спринту использован именно такой прием выдергивания Element
     // ANSWER: https://yadi.sk/i/Tubh_dObPeJf6g 3:43, line 16
+
+    // Я предпочитаю клонировать шаблон в Fragment и дальше его модифицировать, таким образом точно исходный шаблон не изменю
     if (!this.getDOM()) {
       const cardTpl = this._create();
       super.render(cardTpl.firstElementChild);
       this.props.parentDOM().appendChild(cardTpl);
+      // тут можно return и без else
     } else {
       this.getDOM().querySelector('.place-card__like-icon').className = `place-card__like-icon ${this.state.isLiked ? ' place-card__like-icon_liked' : ''}`;
       super.render();
@@ -36,18 +35,13 @@ class PlaceCard extends Component {
 
   _create() {
     const cardDOM = this._template.content.cloneNode(true);
-    // Можно лучше
-    // Деструктурировать необходимые данные из this.props, чтобы эту присказку за собой не тянуть
-    const {link, name} = this.props;
+    const { link, name } = this.props;
     cardDOM.querySelector('.place-card__image').style.backgroundImage = `url(${link})`;
     cardDOM.querySelector('.place-card__name').textContent = name;
     return cardDOM;
   }
 
   componentDidMount() {
-    // Надо исправить
-    // Установку слушателей лучще вынести в отдельный метод, его в случае наследования можно переопределять
-    // А так придется весь метод создания карты переделывать
     this.getDOM().querySelector('.place-card__like-icon').addEventListener('click', this.like);
     this.getDOM().querySelector('.place-card__delete-icon').addEventListener('click', this.remove);
     this.getDOM().querySelector('.place-card__image').addEventListener('click', this._magnify);

@@ -7,6 +7,10 @@ class FormValidator {
     // ANSWER: в прошлом спринте в секции надо исправить было сказано, что нельзя полагаться на [...form.elements].filter((el) => el.tagName === 'BUTTON' && el.type ==='submit')[0]
     // ANSWER: так как разметку могут поменять. Я тоже не особо видел примеры с более, чем одним сабмитом (может несколько раз, но это точно не мейнстрим)
     // ANSWER: а как-то извне передавать элемент сабмита я не хочу
+
+    // Ну вот вообще лучше может и извне, таким образом класс не заморачивается на тонкости верстки и реализации чего-то еще
+    // а просто получил кнопку и ее включает-выключает, максимально отвязан от реализации формы
+    // А представьте не нашел кнопку?
     this._submits = [...form.elements].filter((el) => el.tagName === 'BUTTON' && el.type === 'submit');
     this.setSubmitButtonState = this.setSubmitButtonState.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
@@ -14,18 +18,10 @@ class FormValidator {
   }
 
   checkInputValidity(el, errEl) {
-    // Можно лучше
-    // Сложные цепочки логические с else if не очень хорошо читаются, и вообше в них проще запутаться лучше использовать
-    // Простую конструкцию
-    // if (условие) {
-    //   код;
-    //   return результат;
-    // }
     if (el.validity.valueMissing) {
       errEl.textContent = 'Это обязательное поле';
       return false;
     }
-    // И вот такие длинные строчки конечно не читаются, лучше в блок взять и внутри блока присвоение сделать
     if (el.validity.tooShort || el.validity.tooLong) {
       errEl.textContent = `Должно быть от ${el.getAttribute('minlength')} до ${el.getAttribute('maxlength')} символов`;
       return false;

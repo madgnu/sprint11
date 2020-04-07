@@ -14,7 +14,7 @@ class PlacesList extends Component {
 
   _removeCardCb(cardEl) {
     const children = this.state.children.filter((el) => el !== cardEl);
-    this.setState({children});
+    this.setState({ children });
   }
 
   componentDidMount() {
@@ -22,16 +22,15 @@ class PlacesList extends Component {
   }
 
   addCard(data, ChildComponent = this.props.defaultChildClass) {
-    // Нельзя создавать новые сущности одного класса внутри другого класса
-    // Класс -- объект самодостаточный, ему необходимо данные передавать в конструктор или в методы в конце концов.
-    // Если этот класс будет включен в другой проект, то тогда придется тянуть за собой все глобальные объекты,
-    // к которым он обращается.
     if (Array.isArray(data)) {
+      // Можно лучше
+      // Вы, как человек с опытом, знаете что длинные строки лучше переносить для читаемости
       const newCards = data.map((cardData) => new ChildComponent({ ...cardData, parentDOM: this.getDOM, onRemove: this._removeCardCb, magnify: this.props.magnify }));
       this.setState({ children: [...this.state.children, ...newCards] });
+      // Тут можно return и продолжить без else
     } else {
       const newCard = new ChildComponent({ ...data, parentDOM: this.getDOM, onRemove: this._removeCardCb, magnify: this.props.magnify });
-      this.setState({ children: [...this.state.children, newCard]});
+      this.setState({ children: [...this.state.children, newCard] });
     }
   }
 }

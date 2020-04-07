@@ -15,8 +15,6 @@ class Popup extends Component {
   }
 
   componentDidMount() {
-    // Надо исправить
-    // render для отрисовки, а сулшатели надо в отдельном методе назначать
     this.getDOM().querySelector('.popup__close').addEventListener('click', this.close);
   }
 
@@ -34,10 +32,10 @@ class Popup extends Component {
   }
 
   open() {
-    this.setState({isOpened: true});
+    this.setState({ isOpened: true });
   }
 
   close() {
-    this.setState({isOpened: false});
+    this.setState({ isOpened: false });
   }
 }
