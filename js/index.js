@@ -51,5 +51,3 @@ editProfileForm.onSubmit = (data) => {
 };
 
 [magnifyPopup, newCardPopup, editProfilePopup, userInfo, placesList].forEach((el) => el.render());
-
-// См. Review.md

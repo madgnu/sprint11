@@ -2,15 +2,6 @@ class FormValidator {
   constructor(form) {
     this._form = form;
     this._inputs = [...form.elements].filter((el) => el.tagName === 'INPUT');
-    // Не встречал формы где две кнопки сабмита, стоит ли тут массив прям создавать,
-    // а потом перебирать массив из одного элемента?
-    // ANSWER: в прошлом спринте в секции надо исправить было сказано, что нельзя полагаться на [...form.elements].filter((el) => el.tagName === 'BUTTON' && el.type ==='submit')[0]
-    // ANSWER: так как разметку могут поменять. Я тоже не особо видел примеры с более, чем одним сабмитом (может несколько раз, но это точно не мейнстрим)
-    // ANSWER: а как-то извне передавать элемент сабмита я не хочу
-
-    // Ну вот вообще лучше может и извне, таким образом класс не заморачивается на тонкости верстки и реализации чего-то еще
-    // а просто получил кнопку и ее включает-выключает, максимально отвязан от реализации формы
-    // А представьте не нашел кнопку?
     this._submits = [...form.elements].filter((el) => el.tagName === 'BUTTON' && el.type === 'submit');
     this.setSubmitButtonState = this.setSubmitButtonState.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
