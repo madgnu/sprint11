@@ -20,11 +20,17 @@ class Component {
 
   remove() {
     this._unmounting = true;
-    if (typeof (this.props.onRemove) === 'function') this._unmounting = this.props.onRemove(this);
-    if (!this._unmounting) {
-      this._unmounting = false;
-      return;
+    if (typeof(this.props.onRemove) === 'function') {
+      this.props.onRemove(this, (interrupted) => {
+        if (!interrupted) this._remove();
+        else this._unmounting = false;
+      });
+    } else {
+      this._remove();
     }
+  }
+
+  _remove() {
     this.componentWillUnmount();
     this.children.forEach((el) => el.remove());
     if (this._dom) this._dom.remove();

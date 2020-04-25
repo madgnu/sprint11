@@ -13,10 +13,10 @@ class PlacesList extends Component {
     super.render(this.props.container);
   }
 
-  _removeCardCb(cardEl) {
+  _removeCardCb(cardEl, cb) {
     const children = this.state.children.filter((el) => el !== cardEl);
     this.setState({ children });
-    if (this.props.onChildRemove) this.props.onChildRemove(cardEl);
+    if (this.props.onChildRemove) this.props.onChildRemove(cardEl, cb);
   }
 
   componentDidMount() {
