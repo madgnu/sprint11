@@ -1,22 +1,32 @@
 class UserInfo extends Component {
   constructor(props) {
     super(props);
-    this.setUserInfo({ name: props.name, job: props.job });
+    //https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg
+    this.setUserInfo({ name: props.name, about: props.about, avatar: props.avatar });
     this.state = this._profile;
   }
 
   render() {
     super.render(this.props.container);
-    this.getDOM().querySelector('.user-info__name').textContent = this.state.name;
-    this.getDOM().querySelector('.user-info__job').textContent = this.state.job;
+    const nameEl = this.getDOM().querySelector('.user-info__name');
+    const jobEl = this.getDOM().querySelector('.user-info__job');
+    const photoEl = this.getDOM().querySelector('.user-info__photo');
+    if (nameEl.textContent !== this.state.name) nameEl.textContent = this.state.name;
+    if (jobEl.textContent !== this.state.about) jobEl.textContent = this.state.about;
+    if (photoEl.style.backgroundImage !== `url("${this.state.avatar}")`) photoEl.style.backgroundImage = `url("${this.state.avatar}")`;
   }
 
   setUserInfo(profile) {
-    this._profile = profile;
+    if (!this._profile) this._profile = {};
+    this._profile = { ...this._profile, ...profile};
   }
 
   updateUserInfo() {
     this.setState(this._profile);
+  }
+
+  get id() {
+    return this.props._id;
   }
 
   get profile() {

@@ -17,7 +17,7 @@ class FormValidator {
       errEl.textContent = `Должно быть от ${el.getAttribute('minlength')} до ${el.getAttribute('maxlength')} символов`;
       return false;
     }
-    if (el.type === 'url' && (el.validity.typeMismatch || el.validity.patternMismatch)) {
+    if (el.type === 'url' && el.validity.typeMismatch) {
       errEl.textContent = 'Здесь должна быть ссылка';
       return false;
     }
@@ -31,11 +31,19 @@ class FormValidator {
     this._submits.forEach((el) => el.disabled = !formIsValid);
   }
 
-  _submitHandler(event) {
+  async _submitHandler(event) {
     event.preventDefault();
     const ret = {};
     this._inputs.forEach((el) => ret[el.name] = el.value);
-    this.onSubmit(ret);
+    this._submits.forEach((el) => {
+      el.dataset.originText = el.textContent;
+      el.textContent = 'Загрузка...';
+      el.disabled = true;
+    })
+    await this.onSubmit(ret);
+    this._submits.forEach((el) => {
+      el.textContent = el.dataset.originText;
+    })
   }
 
   setEventListeners() {
@@ -50,7 +58,8 @@ class FormValidator {
   }
 
   setValues(data) {
-    for (const field in data) this._form.elements[field].value = data[field];
+    for (const field in data)
+      if (field in this._form.elements) this._form.elements[field].value = data[field];
     this.setSubmitButtonState(false);
   }
 

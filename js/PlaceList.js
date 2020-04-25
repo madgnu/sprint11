@@ -5,6 +5,7 @@ class PlacesList extends Component {
     this.state = {
       children: [...this.children]
     };
+    this.addCard = this.addCard.bind(this);
   }
 
   render() {
@@ -15,10 +16,11 @@ class PlacesList extends Component {
   _removeCardCb(cardEl) {
     const children = this.state.children.filter((el) => el !== cardEl);
     this.setState({ children });
+    if (this.props.onChildRemove) this.props.onChildRemove(cardEl);
   }
 
   componentDidMount() {
-    this.addCard(this.props.cards);
+    if (this.props.cards) this.addCard(this.props.cards);
   }
 
   addCard(data, ChildComponent = this.props.defaultChildClass) {
@@ -26,12 +28,14 @@ class PlacesList extends Component {
       const newCards = data.map((cardData) => new ChildComponent({
         ...cardData,
         parentDOM: this.getDOM,
-        onRemove: this._removeCardCb, 
+        myId: this.props.myId,
+        onRemove: this._removeCardCb,
+        onChangeLike: this.props.onChangeCardLike,
         magnify: this.props.magnify
       }));
       this.setState({ children: [...this.state.children, ...newCards] });
-    } else {
-      const newCard = new ChildComponent({ ...data, parentDOM: this.getDOM, onRemove: this._removeCardCb, magnify: this.props.magnify });
+    } else if (data) {
+      const newCard = new ChildComponent({ ...data, parentDOM: this.getDOM, myId: this.props.myId, onRemove: this._removeCardCb, onChangeLike: this.props.onChangeCardLike, magnify: this.props.magnify });
       this.setState({ children: [...this.state.children, newCard] });
     }
   }
