@@ -12,14 +12,6 @@ class Api {
 
             const res = await fetch(`${this._baseUrl}/${path}`, { method, headers: this._headers , body: JSON.stringify(body)});
             if (!res.ok) {
-                /*REVIEW. Надо исправить. Надо продумать и проэкспериментировать. В случае неуспешного ответа сервера нужно возвращать не null,
-                а объект с ошибкой, которая произошла,
-                чтобы этот объект был обнаружен именно в блоке catch и там был обработан.
-                То есть вместо return null, я думаю, должно быть:
-                await Promise.reject(res.status);
-                Сейчас в блоке catch могут быть обнаружены только ошибки сети, а ошибки сервера - нет.
-                Нужно сделать правильно.
-                */
                 await Promise.reject(res.status);
             }
 
