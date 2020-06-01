@@ -1,4 +1,6 @@
-class Popup extends Component {
+import Component from './Component.js';
+
+export default class Popup extends Component {
   constructor(props) {
     super(props);
     this.open = this.open.bind(this);

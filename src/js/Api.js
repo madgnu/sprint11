@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
     constructor(baseUrl, groupId, token) {
         this._baseUrl = `${baseUrl}/${groupId}`;
         this._headers = {

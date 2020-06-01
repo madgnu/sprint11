@@ -1,4 +1,6 @@
-class PlacesList extends Component {
+import Component from './Component.js';
+
+export default class PlacesList extends Component {
   constructor(props) {
     super(props);
     this._removeCardCb = this._removeCardCb.bind(this);

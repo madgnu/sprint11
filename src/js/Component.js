@@ -1,4 +1,4 @@
-class Component {
+export default class Component {
   constructor(props) {
     this.props = props || {};
     if (this.props.children) this.children = [...this.props.children];

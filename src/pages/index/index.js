@@ -1,9 +1,20 @@
 'use strict';
 
+import './index.css';
+
+import FormValidator from '../../js/FormValidator.js';
+import Popup from '../../js/Popup.js';
+import UserInfo from '../../js/UserInfo.js';
+import Button from '../../js/Button.js';
+import PlaceCard from '../../js/PlaceCard.js';
+import PlacesList from '../../js/PlaceList.js';
+import Api from '../../js/Api.js';
+
 (async () => {
   const popupImage = document.querySelector('.popup__image');
 
-  const api = new Api('https://praktikum.tk', 'cohort10', '0b019abe-929d-4e9c-a772-71fefc318b80');
+  const serverUrl = (NODE_ENV === 'development') ? 'http://praktikum.tk' : 'https://praktikum.tk';
+  const api = new Api(serverUrl, 'cohort10', '0b019abe-929d-4e9c-a772-71fefc318b80');
 
   const newForm = new FormValidator(document.forms.new);
   const editProfileForm = new FormValidator(document.forms.editProfile);
