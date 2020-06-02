@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(form) {
     this._form = form;
     this._inputs = [...form.elements].filter((el) => el.tagName === 'INPUT');

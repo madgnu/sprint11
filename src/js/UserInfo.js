@@ -1,4 +1,6 @@
-class UserInfo extends Component {
+import Component from './Component.js';
+
+export default class UserInfo extends Component {
   constructor(props) {
     super(props);
     //https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg

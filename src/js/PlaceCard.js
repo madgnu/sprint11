@@ -1,4 +1,6 @@
-class PlaceCard extends Component {
+import Component from './Component.js';
+
+export default class PlaceCard extends Component {
   constructor(props) {
     super(props);
     this._template = document.querySelector('#cardTpl');

@@ -1,4 +1,6 @@
-class Button extends Component {
+import Component from './Component.js';
+
+export default class Button extends Component {
     render() {
         super.render(this.props.container);
     }
