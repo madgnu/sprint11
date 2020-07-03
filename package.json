@@ -7,7 +7,7 @@
     "build": "rimraf dist && NODE_ENV=production webpack --mode production",
     "dev": "NODE_ENV=development webpack-dev-server --mode development --open --watch",
     "deploy": "NODE_ENV=production gh-pages -d dist",
-    "start": "http-server -p 80 dist"
+    "start": "http-server -p $PORT dist"
   },
   "repository": {
     "type": "git",
